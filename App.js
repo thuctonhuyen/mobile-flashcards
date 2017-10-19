@@ -6,44 +6,41 @@ import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import ListOfDecks from './components/ListOfDecks'
 import IndividualDeck from './components/IndividualDeck'
-import {StackNavigator, TabNavigator } from 'react-navigation'
+import Quiz from './components/Quiz'
+import {StackNavigator, TabNavigator} from 'react-navigation'
 
-//tab navigator => later on
-const Tabs = TabNavigator({
-    Home: {
-        screen: ListOfDecks,
-    },
+//TODO: tab navigator => later on
 
-    Deck:{
-        screen: IndividualDeck
-    }
-})
 
 //stack navigator
 const MainNavigator = StackNavigator({
-    Home: {
-        screen: ListOfDecks,
+        Home: {
+            screen: ListOfDecks,
+        },
+
+        Deck: {
+            screen: IndividualDeck
+        },
+
+        Quiz: {
+            screen: Quiz
+        }
+
     },
-
-    Deck:{
-        screen: IndividualDeck
-    }
-
-});
+    {
+        initialRouteName: "Home",
+        headerMode: "none",
+    });
 
 
 export default class App extends React.Component {
     render() {
         return (
             <Provider store={createStore(reducer)}>
-                <Container>
-                    <MainNavigator/>
-                </Container>
+                <MainNavigator/>
             </Provider>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    container: {},
-});
+const styles = StyleSheet.create({});
