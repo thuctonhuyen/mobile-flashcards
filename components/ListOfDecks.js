@@ -1,12 +1,13 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {
-    Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
+    Container, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
     , Card, CardItem, H1, H2, H3
 } from 'native-base';
-import { NavigationActions } from 'react-navigation'
-import { connect } from 'react-redux'
+import {NavigationActions} from 'react-navigation'
+import {connect} from 'react-redux'
 import {TouchableOpacity} from 'react-native'
+import AppHeader from './AppHeader'
 
 
 class ListOfDecks extends React.Component {
@@ -15,29 +16,28 @@ class ListOfDecks extends React.Component {
 
         const cards = [{title: 'udacicards', total: '3'},
             {title: 'newdeck', total: '0'},
-            {title: 'newdeck2', total: '4'}];
+            {title: 'newdeck2', total: '4'},
+            {title: 'newdeck3', total: '4'}];
 
         return (
             <Container>
-                <Header>
-                    <Text>Decks</Text>
-                </Header>
+                <AppHeader home={true} header_title={"List of Decks"}/>
                 <Content>
                     {cards.map(card =>
                         <TouchableOpacity key={card.title} onPress={() =>
                             this.props.navigation.navigate('Deck', {card})}>
-                        <Card >
-                            <CardItem>
-                                <Body>
-                                <H2 style={styles.textCenter}>{card.title}</H2>
-                                </Body>
-                            </CardItem>
-                            <CardItem>
-                                <Body>
-                                <Text style={[styles.textCenter, styles.fadedText]}>{card.total} cards</Text>
-                                </Body>
-                            </CardItem>
-                        </Card>
+                            <Card style={{height: 100}}>
+                                <CardItem>
+                                    <Body>
+                                    <H1 style={styles.textCenter}>{card.title}</H1>
+                                    </Body>
+                                </CardItem>
+                                <CardItem>
+                                    <Body>
+                                    <Text style={[styles.textCenter, styles.fadedText]}>{card.total} cards</Text>
+                                    </Body>
+                                </CardItem>
+                            </Card>
                         </TouchableOpacity>
                     )}
                 </Content>
@@ -47,18 +47,17 @@ class ListOfDecks extends React.Component {
 }
 
 
-
 const styles = StyleSheet.create({
     textCenter: {
         alignSelf: 'center'
     },
 
-    fadedText:{
+    fadedText: {
         color: '#717477'
     }
 })
 
-function mapStateToProps (entries) {
+function mapStateToProps(entries) {
     return {
         entries
     }

@@ -1,35 +1,74 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View, Dimensions, TouchableOpacity} from 'react-native';
 import {
-    Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
+    Container, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
     , Card, CardItem, H1, H2, H3
 } from 'native-base';
+
+import {Col, Row, Grid} from 'react-native-easy-grid';
+import AppHeader from './AppHeader'
 
 export default class ListOfDecks extends React.Component {
 
     render() {
 
         const {card} = this.props.navigation.state.params;
+        let {height, width} = Dimensions.get('window');
+
 
         return (
+
             <Container>
-                <Content padder>
-                    <Header/>
-                    <Body>
-                        <H2>{card.title}</H2>
-                        <Text>{card.total} cards </Text>
-                        <Button>
-                            <Text>Add Card</Text>
-                        </Button>
-                        <Button>
-                            <Text>Start Quiz</Text>
-                        </Button>
-                    </Body>
+                <AppHeader header_title={card.title} go_back={this.props.navigation.goBack}/>
+                <Content>
+                    <Grid>
+                        <Row style={{height: height - 200}}>
+                            <Grid>
+                                <Row style={styles.center}>
+                                    <H1>{card.title}</H1>
+                                </Row>
+                                <Row style={styles.center}>
+                                    <Text>{card.total} cards </Text>
+                                </Row>
+                            </Grid>
+                        </Row>
+
+                        <Row style={{height: 150}}>
+                            <Grid>
+                                <Row style={styles.center}>
+                                    <Button light>
+                                        <Text>Add Card</Text>
+                                    </Button>
+                                </Row>
+                                <Row style={styles.center}>
+
+                                    <Button dark onPress={() =>
+                                        this.props.navigation.navigate('Quiz', {"list_of_quizzes": []})}>
+                                        <Text>Start Quiz</Text>
+                                    </Button>
+
+                                </Row>
+
+                            </Grid>
+                        </Row>
+
+                    </Grid>
+
+
                 </Content>
+
             </Container>
         );
     }
 }
 
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    center: {
+        justifyContent: "center",
+        alignItems: "center"
+
+    },
+
+
+});
