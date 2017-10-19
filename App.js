@@ -6,16 +6,32 @@ import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import ListOfDecks from './components/ListOfDecks'
 import IndividualDeck from './components/IndividualDeck'
+import NewDeck from './components/NewDeck'
 import Quiz from './components/Quiz'
 import {StackNavigator, TabNavigator} from 'react-navigation'
 
-//TODO: tab navigator => later on
+
+const Tabs = TabNavigator({
+        Home: {
+            screen: ListOfDecks
+        },
+
+        NewDeck: {
+            screen: NewDeck
+        }
+
+    },
+    {
+        tabBarOptions: {
+            activeTintColor: '#e91e63',
+        }
+    });
 
 
 //stack navigator
 const MainNavigator = StackNavigator({
         Home: {
-            screen: ListOfDecks,
+            screen: Tabs,
         },
 
         Deck: {
