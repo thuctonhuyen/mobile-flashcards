@@ -9,6 +9,9 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import AppHeader from './AppHeader'
 
 export default class ListOfDecks extends React.Component {
+    static navigationOptions = {
+        tabBarLabel: 'Decks List'
+    };
 
     render() {
 
@@ -28,7 +31,7 @@ export default class ListOfDecks extends React.Component {
                                     <H1>{card.title}</H1>
                                 </Row>
                                 <Row style={styles.center}>
-                                    <Text>{card.total} cards </Text>
+                                    <Text>{card.questions.length} cards </Text>
                                 </Row>
                             </Grid>
                         </Row>
@@ -36,7 +39,8 @@ export default class ListOfDecks extends React.Component {
                         <Row style={{height: 150}}>
                             <Grid>
                                 <Row style={styles.center}>
-                                    <Button light>
+                                    <Button light onPress={() =>
+                                        this.props.navigation.navigate('NewCard', {"deck": {}})}>
                                         <Text>Add Card</Text>
                                     </Button>
                                 </Row>

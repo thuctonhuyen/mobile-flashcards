@@ -1,16 +1,24 @@
-export const RECEIVE_ENTRIES = 'RECEIVE_ENTRIES'
-export const ADD_ENTRY = 'ADD_ENTRY'
+import * as action_type from './action_types'
+import {getDecks, saveDeckTitle} from "../helpers/api";
 
-export function receiveEntries (entries) {
+export const receiveAllDecks = decks => ({
+    type: action_type.RECEIVE_ALL_DECKS,
+    decks
+});
+
+export const fetchAllDecks = () => dispatch => (
+    getDecks().then(decks => dispatch(receiveAllDecks(decks)))
+);
+
+
+export function addDeck(decks) {
     return {
-        type: RECEIVE_ENTRIES,
-        entries,
+        type: action_type.ADD_ENTRY,
+        decks,
     }
 }
 
-export function addEntry (entry) {
-    return {
-        type: ADD_ENTRY,
-        entry,
-    }
-}
+export const saveDeck = (title) => dispatch => (
+    saveDeckTitle(title).then(decks => console.log(decks))
+);
+

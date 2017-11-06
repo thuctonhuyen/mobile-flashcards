@@ -8,33 +8,37 @@ import {NavigationActions} from 'react-navigation'
 import {connect} from 'react-redux'
 import {TouchableOpacity} from 'react-native'
 import AppHeader from './AppHeader'
-
+import {fetchAllDecks} from "../actions/index";
 
 class ListOfDecks extends React.Component {
 
+    componentWillMount() {
+        const {dispatch} = this.props;
+        dispatch(fetchAllDecks());
+    }
+
     render() {
 
-        const cards = [{title: 'udacicards', total: '3'},
-            {title: 'newdeck', total: '0'},
-            {title: 'newdeck2', total: '4'},
-            {title: 'newdeck3', total: '4'}];
+        const {decks} = this.props;
+
 
         return (
             <Container>
                 <AppHeader home={true} header_title={"List of Decks"}/>
                 <Content>
-                    {cards.map(card =>
-                        <TouchableOpacity key={card.title} onPress={() =>
-                            this.props.navigation.navigate('Deck', {card})}>
+                    {Object.keys(decks).map(key =>
+                        <TouchableOpacity key={key} onPress={() =>
+                            this.props.navigation.navigate('Deck', {card: decks[key]})}>
                             <Card style={{height: 100}}>
                                 <CardItem>
                                     <Body>
-                                    <H1 style={styles.textCenter}>{card.title}</H1>
+                                    <H1 style={styles.textCenter}>{decks[key]['title']}</H1>
                                     </Body>
                                 </CardItem>
                                 <CardItem>
                                     <Body>
-                                    <Text style={[styles.textCenter, styles.fadedText]}>{card.total} cards</Text>
+                                    <Text style={[styles.textCenter, styles.fadedText]}>{decks[key]['questions'].length}
+                                        cards</Text>
                                     </Body>
                                 </CardItem>
                             </Card>
@@ -57,9 +61,9 @@ const styles = StyleSheet.create({
     }
 })
 
-function mapStateToProps(entries) {
+function mapStateToProps(decks) {
     return {
-        entries
+        decks
     }
 }
 
