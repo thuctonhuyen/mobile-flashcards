@@ -11,6 +11,7 @@ import NewCard from './components/NewCard'
 import Quiz from './components/Quiz'
 import {StackNavigator, TabNavigator} from 'react-navigation'
 import thunk from 'redux-thunk';
+import logger from 'redux-logger'
 
 
 const Tabs = TabNavigator({
@@ -61,7 +62,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
     rootReducer,
     composeEnhancers(
-        applyMiddleware(thunk)
+        applyMiddleware(thunk, logger)
     )
 );
 

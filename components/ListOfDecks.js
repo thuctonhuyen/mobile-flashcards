@@ -22,11 +22,13 @@ class ListOfDecks extends React.Component {
         const {decks} = this.props;
 
 
+
+
         return (
             <Container>
                 <AppHeader home={true} header_title={"List of Decks"}/>
                 <Content>
-                    {Object.keys(decks).map(key =>
+                    {Object.keys(decks).sort().map(key =>
                         <TouchableOpacity key={key} onPress={() =>
                             this.props.navigation.navigate('Deck', {card: decks[key]})}>
                             <Card style={{height: 100}}>

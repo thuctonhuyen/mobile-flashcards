@@ -17,22 +17,23 @@ class NewDeck extends React.Component {
         title: '',
     }
 
-    handleOnPress = (e) => {
+    handleOnPress = async (e) => {
         const {dispatch} = this.props;
-        dispatch(saveDeck(this.state.title));
+        await dispatch(saveDeck(this.state.title));
+
+        this.setState({title: ''});
 
     }
 
     render() {
-
         return (
-
             <Container>
                 <AppHeader header_title={"New Deck"} go_back={this.props.navigation.goBack}/>
                 <Content>
                     <H1>What is the title of your new deck?</H1>
                     <Item regular>
                         <Input placeholder='Enter title here...'
+                               value={this.state.title}
                                onChangeText={text => this.setState({title: text})}/>
                     </Item>
 

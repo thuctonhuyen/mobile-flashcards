@@ -1,19 +1,14 @@
-
 import * as action_type from "../actions/action_types";
 
 
-function rootReducer (state = {} , action){
+function rootReducer(state = {}, action) {
 
     //console.log("action", action);
 
-    switch(action.type){
+    switch (action.type) {
         case action_type.RECEIVE_ALL_DECKS:
-            return action.decks;
-
         case action_type.ADD_DECK:
-            let {deck}= action;
-            state[deck.title] = deck;
-            return state;
+            return action.decks;
 
         case action_type.ADD_CARD:
             //card will be in format as following: {deck_title: ..., question:...., answer: ...}

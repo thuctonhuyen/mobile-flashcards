@@ -13,12 +13,12 @@ export const fetchAllDecks = () => dispatch => (
 
 export function addDeck(decks) {
     return {
-        type: action_type.ADD_ENTRY,
+        type: action_type.ADD_DECK,
         decks,
     }
 }
 
 export const saveDeck = (title) => dispatch => (
-    saveDeckTitle(title).then(decks => console.log(decks))
+    saveDeckTitle(title).then(decks => dispatch(addDeck(decks)))
 );
 

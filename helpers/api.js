@@ -60,8 +60,14 @@ export async function getDeck(id) {
 
 export async function saveDeckTitle(title) {
 
+    //TODO: reformat the object prepare to save
+    let new_deck = {[title]: {
+        title: title,
+            questions: []
+    }};
+
     await AsyncStorage.mergeItem(DECKS_STORAGE_KEY,
-            JSON.stringify({[title]: {}}));
+            JSON.stringify(new_deck));
 
     const decks = await getDecks();
 
