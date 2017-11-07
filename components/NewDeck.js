@@ -15,13 +15,19 @@ class NewDeck extends React.Component {
 
     state = {
         title: '',
+        status: 'regular'
     }
 
     handleOnPress = async (e) => {
+        this.setState((prevState) => {
+            prevState.status = 'success';
+            return prevState;
+        });
+
         const {dispatch} = this.props;
         await dispatch(saveDeck(this.state.title));
 
-        this.setState({title: ''});
+        this.setState({title: '', status: 'regular'});
 
     }
 
@@ -30,16 +36,23 @@ class NewDeck extends React.Component {
             <Container>
                 <AppHeader header_title={"New Deck"} go_back={this.props.navigation.goBack}/>
                 <Content>
+
                     <H1>What is the title of your new deck?</H1>
-                    <Item regular>
+                    <Item regular={this.state.status === 'regular' ? true : false}
+                          success={this.state.status === 'success' ? true : false}>
                         <Input placeholder='Enter title here...'
                                value={this.state.title}
-                               onChangeText={text => this.setState({title: text})}/>
+                               onChangeText={text => this.setState((prevState) => {
+                                   prevState.title = text;
+                                   return prevState;
+                               })}/>
                     </Item>
 
                     <Button dark onPress={e => this.handleOnPress(e)}>
                         <Text>SUBMIT</Text>
                     </Button>
+
+
 
                 </Content>
 
@@ -48,7 +61,15 @@ class NewDeck extends React.Component {
     }
 }
 
+const styles = StyleSheet.create({
+    center: {
+        justifyContent: "center",
+        alignItems: "center"
 
+    },
+
+
+});
 
 
 export default connect(

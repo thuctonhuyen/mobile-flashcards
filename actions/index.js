@@ -1,5 +1,5 @@
 import * as action_type from './action_types'
-import {getDecks, saveDeckTitle} from "../helpers/api";
+import {getDecks, saveDeckTitle, addCardToDeck} from "../helpers/api";
 
 export const receiveAllDecks = decks => ({
     type: action_type.RECEIVE_ALL_DECKS,
@@ -11,14 +11,11 @@ export const fetchAllDecks = () => dispatch => (
 );
 
 
-export function addDeck(decks) {
-    return {
-        type: action_type.ADD_DECK,
-        decks,
-    }
-}
-
 export const saveDeck = (title) => dispatch => (
-    saveDeckTitle(title).then(decks => dispatch(addDeck(decks)))
+    saveDeckTitle(title).then(decks => dispatch(receiveAllDecks(decks)))
+);
+
+export const saveCard = (title, card) => dispatch => (
+    addCardToDeck(title, card).then(decks => dispatch(receiveAllDecks(decks)))
 );
 

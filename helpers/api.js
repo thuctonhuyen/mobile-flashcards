@@ -40,7 +40,8 @@ export async function getDecks() {
     const result = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
 
     if (!result) {
-        let decks = await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initState));
+        await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initState));
+        let decks = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
         return JSON.parse(decks);
 
     }else {
@@ -60,7 +61,6 @@ export async function getDeck(id) {
 
 export async function saveDeckTitle(title) {
 
-    //TODO: reformat the object prepare to save
     let new_deck = {[title]: {
         title: title,
             questions: []
@@ -77,6 +77,21 @@ export async function saveDeckTitle(title) {
 
 }
 
-export function addCardToDeck(title, card) {
+export async function addCardToDeck(title, card) {
+
+    let decks = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
+
+    decks = JSON.parse(decks);
+
+
+    decks[title]['questions'].push(card);
+
+
+    await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
+
+    decks = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
+
+    return JSON.parse(decks);
+
 
 }

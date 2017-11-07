@@ -7,17 +7,32 @@ import {
 
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import AppHeader from './AppHeader'
+import {saveCard} from "../actions/index";
+import {connect} from 'react-redux';
 
-export default class NewCard extends React.Component {
 
-    state={
-        question: '',
-        answer:''
+initState = {
+    question: '',
+    answer:''
+}
+class NewCard extends React.Component {
+
+    state={}
+
+
+    componentWillMount(){
+        this.setState(initState);
     }
 
-    handleOnPress = (e) => {
+    handleOnPress = async (e) => {
 
-        console.log(this.state);
+        const {dispatch} = this.props;
+        const {deck_title} = this.props.navigation.state.params;
+
+        await dispatch(saveCard(deck_title, this.state));
+
+        this.setState({question: '', answer: ''});
+
 
     }
 
@@ -30,10 +45,12 @@ export default class NewCard extends React.Component {
 
                     <Item regular>
                         <Input placeholder='Type your question here...'
+                               value={this.state.question}
                                onChangeText={text => this.setState({question: text})}/>
                     </Item>
                     <Item regular>
                         <Input placeholder='Type your answer here...'
+                               value={this.state.answer}
                                onChangeText={text => this.setState({answer: text})}/>
                     </Item>
                     <Button dark onPress={e => this.handleOnPress(e)}>
@@ -47,4 +64,5 @@ export default class NewCard extends React.Component {
     }
 }
 
+export default connect()(NewCard)
 

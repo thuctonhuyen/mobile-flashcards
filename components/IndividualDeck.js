@@ -15,7 +15,7 @@ export default class ListOfDecks extends React.Component {
 
     render() {
 
-        const {card} = this.props.navigation.state.params;
+        const {card, deck_title} = this.props.navigation.state.params;
         let {height, width} = Dimensions.get('window');
 
 
@@ -40,7 +40,7 @@ export default class ListOfDecks extends React.Component {
                             <Grid>
                                 <Row style={styles.center}>
                                     <Button light onPress={() =>
-                                        this.props.navigation.navigate('NewCard', {"deck": {}})}>
+                                        this.props.navigation.navigate('NewCard', {deck_title})}>
                                         <Text>Add Card</Text>
                                     </Button>
                                 </Row>
