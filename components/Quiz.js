@@ -15,7 +15,8 @@ class Quiz extends React.Component {
     state = {
         currentQuiz: 0,
         totalCorrect: 0,
-        totalIncorrect: 0
+        totalIncorrect: 0,
+        flip: false
     }
 
     handleOnPress = (answer) => {
@@ -27,10 +28,29 @@ class Quiz extends React.Component {
 
     }
 
+    handleFlip = () => {
+        this.setState(prevState => {
+           prevState.flip = !prevState.flip;
+           return prevState;
+        });
+    }
+
+    startQuizAgain = () => {
+        this.setState(prevState => {
+            return{
+                currentQuiz: 0,
+                totalCorrect: 0,
+                totalIncorrect: 0,
+                flip: false
+            }
+        });
+    }
+
+
     render() {
 
         const {list_of_quizzes} = this.props.navigation.state.params;
-        const {currentQuiz, totalCorrect, totalIncorrect} = this.state;
+        const {currentQuiz, totalCorrect, totalIncorrect, flip} = this.state;
         let question = null;
         if (currentQuiz < list_of_quizzes.length) {
             question = list_of_quizzes[currentQuiz];
@@ -43,6 +63,12 @@ class Quiz extends React.Component {
                     <Content>
                         <Text>Total Correct: {totalCorrect}</Text>
                         <Text>Total Incorrect: {totalIncorrect}</Text>
+                       <Button dark onPress={() => this.startQuizAgain()}>
+                           <Text>Start Quiz Again</Text>
+                       </Button>
+                        <Button primary onPress={() => this.props.navigation.goBack()}>
+                            <Text>Back To Deck </Text>
+                        </Button>
                     </Content>
                 </Container>
             )
@@ -56,15 +82,18 @@ class Quiz extends React.Component {
 
                             <View>
                                 <Grid>
-
-                                    <FlipCard>
+                                    <FlipCard flip={flip} clickable={false}>
                                         {/* Face Side */}
                                         <View>
                                             <Row><Text>{question.question}</Text></Row>
+                                            <Row><TouchableOpacity onPress={() => this.handleFlip()}>
+                                                <Text>Show Answer</Text></TouchableOpacity></Row>
                                         </View>
                                         {/* Back Side */}
                                         <View>
                                             <Row><Text>{question.answer}</Text></Row>
+                                            <Row><TouchableOpacity onPress={() => this.handleFlip()}>
+                                                <Text>Hide Answer</Text></TouchableOpacity></Row>
                                         </View>
                                     </FlipCard>
                                     <Row><Button success onPress={() => this.handleOnPress(1)}>
