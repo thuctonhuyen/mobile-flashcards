@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Dimensions, TouchableOpacity} from 'react-native';
 import {
     Container, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
-    , Card, CardItem, H1, H2, H3
+    , Card, CardItem
 } from 'native-base';
 
 import {Col, Row, Grid} from 'react-native-easy-grid';
@@ -28,7 +28,7 @@ export default class ListOfDecks extends React.Component {
                         <Row style={{height: height - 200}}>
                             <Grid>
                                 <Row style={styles.center}>
-                                    <H1>{card.title}</H1>
+                                    <Text>{card.title}</Text>
                                 </Row>
                                 <Row style={styles.center}>
                                     <Text>{card.questions.length} cards </Text>

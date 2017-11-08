@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Dimensions} from 'react-native';
 import {
     Container, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
-    , Card, CardItem, H1, H2, H3, Item, Input
+    , Card, CardItem, Item, Input
 } from 'native-base';
 
 import {Col, Row, Grid} from 'react-native-easy-grid';
@@ -37,7 +37,7 @@ class NewDeck extends React.Component {
                 <AppHeader header_title={"New Deck"} go_back={this.props.navigation.goBack}/>
                 <Content>
 
-                    <H1>What is the title of your new deck?</H1>
+                    <Text>What is the title of your new deck?</Text>
                     <Item regular={this.state.status === 'regular' ? true : false}
                           success={this.state.status === 'success' ? true : false}>
                         <Input placeholder='Enter title here...'

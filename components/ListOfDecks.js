@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {
     Container, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
-    , Card, CardItem, H1, H2, H3
+    , Card, CardItem
 } from 'native-base';
 import {NavigationActions} from 'react-navigation'
 import {connect} from 'react-redux'
@@ -31,7 +31,7 @@ class ListOfDecks extends React.Component {
                             <Card style={{height: 100}}>
                                 <CardItem>
                                     <Body>
-                                    <H1 style={styles.textCenter}>{decks[key]['title']}</H1>
+                                    <Text style={styles.textCenter}>{decks[key]['title']}</Text>
                                     </Body>
                                 </CardItem>
                                 <CardItem>

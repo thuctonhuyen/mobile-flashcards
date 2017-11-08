@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Dimensions} from 'react-native';
 import {
     Container, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
-    , Card, CardItem, H1, H2, H3, Item, Input
+    , Card, CardItem, Item, Input
 } from 'native-base';
 
 import {Col, Row, Grid} from 'react-native-easy-grid';

@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {
     Container, Title, Header, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
-    , Card, CardItem, H1, H2, H3
+    , Card, CardItem
 } from 'native-base';
 
 

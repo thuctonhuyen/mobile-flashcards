@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Dimensions, TouchableOpacity} from 'react-native';
 import {
     Container, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
-    , Card, CardItem, H1, H2, H3
+    , Card, CardItem
 } from 'native-base';
 
 import {Col, Row, Grid} from 'react-native-easy-grid';
@@ -30,14 +30,14 @@ class Quiz extends React.Component {
 
     handleFlip = () => {
         this.setState(prevState => {
-           prevState.flip = !prevState.flip;
-           return prevState;
+            prevState.flip = !prevState.flip;
+            return prevState;
         });
     }
 
     startQuizAgain = () => {
         this.setState(prevState => {
-            return{
+            return {
                 currentQuiz: 0,
                 totalCorrect: 0,
                 totalIncorrect: 0,
@@ -55,7 +55,21 @@ class Quiz extends React.Component {
         if (currentQuiz < list_of_quizzes.length) {
             question = list_of_quizzes[currentQuiz];
         }
+        //TODO: when list of quizzes is nothing
 
+        if (list_of_quizzes.length == 0) {
+            return (
+                <Container>
+                    <AppHeader header_title={"Quiz"} go_back={this.props.navigation.goBack}/>
+                    <Content>
+                        <Text>No cards yet.</Text>
+                        <Button primary onPress={() => this.props.navigation.goBack()}>
+                            <Text>Back To Deck </Text>
+                        </Button>
+                    </Content>
+                </Container>
+            )
+        }
         if (!question) {
             return (
                 <Container>
@@ -63,9 +77,9 @@ class Quiz extends React.Component {
                     <Content>
                         <Text>Total Correct: {totalCorrect}</Text>
                         <Text>Total Incorrect: {totalIncorrect}</Text>
-                       <Button dark onPress={() => this.startQuizAgain()}>
-                           <Text>Start Quiz Again</Text>
-                       </Button>
+                        <Button dark onPress={() => this.startQuizAgain()}>
+                            <Text>Start Quiz Again</Text>
+                        </Button>
                         <Button primary onPress={() => this.props.navigation.goBack()}>
                             <Text>Back To Deck </Text>
                         </Button>
@@ -82,7 +96,7 @@ class Quiz extends React.Component {
 
                             <View>
                                 <Grid>
-                                    <FlipCard flip={flip} clickable={false}>
+                                    <FlipCard flip={flip} clickable={false} perspective={1000}>
                                         {/* Face Side */}
                                         <View>
                                             <Row><Text>{question.question}</Text></Row>
