@@ -47,7 +47,7 @@ export default class ListOfDecks extends React.Component {
                                 <Row style={styles.center}>
 
                                     <Button dark onPress={() =>
-                                        this.props.navigation.navigate('Quiz', {"list_of_quizzes": []})}>
+                                        this.props.navigation.navigate('Quiz', {"list_of_quizzes": card.questions})}>
                                         <Text>Start Quiz</Text>
                                     </Button>
 
