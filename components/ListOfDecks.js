@@ -9,6 +9,7 @@ import {connect} from 'react-redux'
 import {TouchableOpacity} from 'react-native'
 import AppHeader from './AppHeader'
 import {fetchAllDecks} from "../actions/index";
+import {headerText} from "../helpers/commonStyle";
 
 class ListOfDecks extends React.Component {
 
@@ -31,7 +32,7 @@ class ListOfDecks extends React.Component {
                             <Card style={{height: 100}}>
                                 <CardItem>
                                     <Body>
-                                    <Text style={styles.textCenter}>{decks[key]['title']}</Text>
+                                    <Text style={[headerText, styles.textCenter]}>{decks[key]['title']}</Text>
                                     </Body>
                                 </CardItem>
                                 <CardItem>

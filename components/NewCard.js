@@ -9,18 +9,20 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import AppHeader from './AppHeader'
 import {saveCard} from "../actions/index";
 import {connect} from 'react-redux';
+import {inputStyle, centerGrid, emptyRow} from "../helpers/commonStyle";
 
 
 initState = {
     question: '',
-    answer:''
+    answer: ''
 }
+
 class NewCard extends React.Component {
 
-    state={}
+    state = {}
 
 
-    componentWillMount(){
+    componentWillMount() {
         this.setState(initState);
     }
 
@@ -42,20 +44,28 @@ class NewCard extends React.Component {
             <Container>
                 <AppHeader header_title={"New Card"} go_back={this.props.navigation.goBack}/>
                 <Content>
-
-                    <Item regular>
-                        <Input placeholder='Type your question here...'
-                               value={this.state.question}
-                               onChangeText={text => this.setState({question: text})}/>
-                    </Item>
-                    <Item regular>
-                        <Input placeholder='Type your answer here...'
-                               value={this.state.answer}
-                               onChangeText={text => this.setState({answer: text})}/>
-                    </Item>
-                    <Button dark onPress={e => this.handleOnPress(e)}>
-                        <Text>SUBMIT</Text>
-                    </Button>
+                    <Grid style={centerGrid}>
+                        <Row style={emptyRow}></Row>
+                        <View style={inputStyle(Dimensions.get('window'))}>
+                            <Item regular>
+                                <Input placeholder='Type your question here...'
+                                       value={this.state.question}
+                                       onChangeText={text => this.setState({question: text})}/>
+                            </Item>
+                        </View>
+                        <View style={inputStyle(Dimensions.get('window'))}>
+                            <Item regular>
+                                <Input placeholder='Type your answer here...'
+                                       value={this.state.answer}
+                                       onChangeText={text => this.setState({answer: text})}/>
+                            </Item>
+                        </View>
+                        <Row>
+                            <Button danger onPress={e => this.handleOnPress(e)}>
+                                <Text>SUBMIT</Text>
+                            </Button>
+                        </Row>
+                    </Grid>
 
                 </Content>
 
