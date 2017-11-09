@@ -7,10 +7,12 @@ export const headerText = {
 
 export const inputStyle = ({height, width}) => {
     return {
-        width: width - 20,
-        height: 60
+        width: width - 30,
+        height: 'auto',
+        margin: 10
     }
 }
+
 
 export const centerGrid = {
     flex: 1,

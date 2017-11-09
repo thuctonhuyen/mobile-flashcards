@@ -25,11 +25,6 @@ class NewDeck extends React.Component {
         let {title} = this.state;
 
         if (title && title.trim()) {
-            this.setState((prevState) => {
-                prevState.status = 'success';
-                prevState.icon = 'checkmark-circle';
-                return prevState;
-            });
 
             const {dispatch} = this.props;
             await dispatch(saveDeck(title));
@@ -46,7 +41,6 @@ class NewDeck extends React.Component {
     };
 
     handleOnChangeText = (text) => {
-        
 
         if (text && text.trim()) {
 

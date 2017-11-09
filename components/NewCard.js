@@ -93,8 +93,6 @@ class NewCard extends React.Component {
         const {questionStatus, questionIcon, answerStatus, answerIcon} = this.state;
 
 
-
-
         return (
             <Container>
                 <AppHeader header_title={"New Card"} go_back={this.props.navigation.goBack}/>

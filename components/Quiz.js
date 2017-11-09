@@ -10,6 +10,7 @@ import AppHeader from './AppHeader'
 
 import {connect} from 'react-redux'
 import FlipCard from 'react-native-flip-card'
+import {centerGrid, emptyRow, inputStyle, headerText} from "../helpers/commonStyle";
 
 class Quiz extends React.Component {
     state = {
@@ -55,7 +56,6 @@ class Quiz extends React.Component {
         if (currentQuiz < list_of_quizzes.length) {
             question = list_of_quizzes[currentQuiz];
         }
-        //TODO: when list of quizzes is nothing
 
         if (list_of_quizzes.length == 0) {
             return (
@@ -88,36 +88,47 @@ class Quiz extends React.Component {
             )
         } else {
             return (
-                <Container>
+                <Container style={styles.container}>
                     <AppHeader header_title={"Quiz"} go_back={this.props.navigation.goBack}/>
                     <Content>
                         <View>
-                            <Text>{this.state.currentQuiz + 1}/{list_of_quizzes.length}</Text>
+                            <Grid style={centerGrid}>
+                                <Row style={emptyRow}/>
+                                <Row><Text>{this.state.currentQuiz + 1}/{list_of_quizzes.length}</Text>
+                                </Row>
 
-                            <View>
-                                <Grid>
-                                    <FlipCard flip={flip} clickable={false} perspective={1000}>
+
+                                <Row style={[inputStyle(Dimensions.get('window')), styles.cardStyle]}>
+                                    <FlipCard style={styles.flipCardStyle} flip={flip} clickable={false}
+                                              perspective={1000}>
                                         {/* Face Side */}
                                         <View>
-                                            <Row><Text>{question.question}</Text></Row>
-                                            <Row><TouchableOpacity onPress={() => this.handleFlip()}>
-                                                <Text>Show Answer</Text></TouchableOpacity></Row>
+
+                                            <Text style={headerText}>{question.question}</Text>
+                                            <TouchableOpacity onPress={() => this.handleFlip()}>
+                                                <Text style={styles.minorText}>Show Answer</Text></TouchableOpacity>
+
                                         </View>
                                         {/* Back Side */}
                                         <View>
-                                            <Row><Text>{question.answer}</Text></Row>
-                                            <Row><TouchableOpacity onPress={() => this.handleFlip()}>
-                                                <Text>Hide Answer</Text></TouchableOpacity></Row>
+
+                                            <Text style={headerText}>{question.answer}</Text>
+                                            <TouchableOpacity onPress={() => this.handleFlip()}>
+                                                <Text style={styles.minorText}>Hide Answer</Text></TouchableOpacity>
+
                                         </View>
                                     </FlipCard>
-                                    <Row><Button success onPress={() => this.handleOnPress(1)}>
-                                        <Text>Correct</Text>
-                                    </Button></Row>
-                                    <Row><Button danger onPress={() => this.handleOnPress(0)}>
-                                        <Text>Incorrect</Text>
-                                    </Button></Row>
-                                </Grid>
-                            </View>
+                                </Row>
+                                <Row><Button success onPress={() => this.handleOnPress(1)}>
+                                    <Text>Correct</Text>
+                                </Button></Row>
+                                <Row style={emptyRow}/>
+                                <Row><Button danger onPress={() => this.handleOnPress(0)}>
+                                    <Text>Incorrect</Text>
+                                </Button></Row>
+
+
+                            </Grid>
                         </View>
 
 
@@ -128,6 +139,30 @@ class Quiz extends React.Component {
         }
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'space-between',
+        alignContent: 'center',
+    },
+
+    minorText: {
+        fontSize: 10,
+        color: 'red',
+        textAlign: 'center',
+
+    },
+    cardStyle: {
+        backgroundColor: 'transparent',
+    },
+
+    flipCardStyle: {
+
+        padding: 50,
+        borderColor: 'transparent',
+    }
+});
 
 export default connect()(Quiz);
 
