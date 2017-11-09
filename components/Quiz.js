@@ -92,7 +92,7 @@ class Quiz extends React.Component {
                     <AppHeader header_title={"Quiz"} go_back={this.props.navigation.goBack}/>
                     <Content>
                         <View>
-                            <Text>{this.state.currentQuiz}/{list_of_quizzes.length}</Text>
+                            <Text>{this.state.currentQuiz + 1}/{list_of_quizzes.length}</Text>
 
                             <View>
                                 <Grid>

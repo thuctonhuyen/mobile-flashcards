@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Dimensions, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
 import {
     Container, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
     , Card, CardItem, Item, Input
@@ -22,7 +22,9 @@ class NewDeck extends React.Component {
 
     handleOnPress = async (e) => {
 
-        if(this.state.title) {
+        let {title} = this.state;
+
+        if (title && title.trim()) {
             this.setState((prevState) => {
                 prevState.status = 'success';
                 prevState.icon = 'checkmark-circle';
@@ -30,10 +32,10 @@ class NewDeck extends React.Component {
             });
 
             const {dispatch} = this.props;
-            await dispatch(saveDeck(this.state.title));
+            await dispatch(saveDeck(title));
 
-            this.setState({title: '', status: 'regular', icon:''});
-        }else{
+            this.setState({title: '', status: 'regular', icon: ''});
+        } else {
             this.setState((prevState) => {
                 prevState.status = 'error';
                 prevState.icon = 'close-circle';
@@ -41,7 +43,37 @@ class NewDeck extends React.Component {
             });
         }
 
-    }
+    };
+
+    handleOnChangeText = (text) => {
+        
+
+        if (text && text.trim()) {
+
+            if (this.state.status !== 'success') {
+                this.setState((prevState) => {
+                    prevState.title = text;
+                    prevState.status = 'success';
+                    prevState.icon = 'checkmark-circle';
+                    return prevState;
+                })
+            }else{
+                this.setState((prevState) => {
+                    prevState.title = text;
+                    return prevState;
+                })
+            }
+        } else {
+            this.setState((prevState) => {
+                prevState.title = text;
+                prevState.status = 'regular';
+                prevState.icon = '';
+                return prevState;
+            })
+
+        }
+
+    };
 
     render() {
 
@@ -55,24 +87,19 @@ class NewDeck extends React.Component {
                         <Row><Text style={headerText}>What is the title of your new deck?</Text></Row>
                         <Row style={emptyRow}></Row>
                         <View style={inputStyle(Dimensions.get('window'))}>
-                        <Item regular={this.state.status === 'regular' ? true : false}
-                                   success={this.state.status === 'success' ? true : false}
-                                    error={this.state.status === 'error' ? true: false}>
-                            <Input placeholder='Enter title here...'
-                                   value={this.state.title}
-                                   onChangeText={text => this.setState((prevState) => {
-                                       prevState.title = text;
-                                       return prevState;
-                                   })}/>
+                            <Item regular={this.state.status === 'regular' ? true : false}
+                                  success={this.state.status === 'success' ? true : false}
+                                  error={this.state.status === 'error' ? true : false}>
+                                <Input placeholder='Enter title here...'
+                                       value={this.state.title}
+                                       onChangeText={(text) => this.handleOnChangeText(text)}/>
 
-                            {this.state.icon ? <Icon name={this.state.icon}/> : <Text></Text>}
-                        </Item>
+                                {this.state.icon ? <Icon name={this.state.icon}/> : <Text></Text>}
+                            </Item>
                         </View>
                         <Row>
-                            <Button danger>
-                                <TouchableOpacity onPress={e => this.handleOnPress(e)}>
-                                    <Text>SUBMIT</Text>
-                                </TouchableOpacity>
+                            <Button danger onPress={e => this.handleOnPress(e)}>
+                                <Text>SUBMIT</Text>
                             </Button>
                         </Row>
                     </Grid>
@@ -92,8 +119,6 @@ const styles = StyleSheet.create({
         alignItems: "center"
 
     },
-
-
 
 
 });
