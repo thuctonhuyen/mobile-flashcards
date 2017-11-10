@@ -13,24 +13,49 @@ import {headerText, inputStyle, centerGrid, emptyRow} from "../helpers/commonSty
 
 //TODO: Pressing the button correctly creates the deck and routes the user
 // to the Individual Deck view for the new deck.
+
+const initState= {
+    title: '',
+    status: 'regular',
+    icon: ''
+}
 class NewDeck extends React.Component {
 
-    state = {
-        title: '',
-        status: 'regular',
-        icon: ''
+    state = {}
+
+    componentWillMount(){
+        this.setState(initState);
     }
+
 
     handleOnPress = async (e) => {
 
         let {title} = this.state;
 
         if (title && title.trim()) {
+            const {dispatch, navigation} = this.props;
+            try {
+                await dispatch(saveDeck(title));
 
-            const {dispatch} = this.props;
-            await dispatch(saveDeck(title));
+                //if success:
 
-            this.setState({title: '', status: 'regular', icon: ''});
+                //reset state:
+                this.setState(initState);
+
+                //then navigate to individual deck view:
+                navigation.navigate('Deck', {
+                    card: this.props.decks[title],
+                    deck_title: this.props.decks.title
+                });
+
+            }catch(e){
+                this.setState((prevState) => {
+                    prevState.status = 'error';
+                    prevState.icon = 'close-circle';
+                    return prevState;
+                });
+            }
+
         } else {
             this.setState((prevState) => {
                 prevState.status = 'error';
@@ -118,7 +143,11 @@ const styles = StyleSheet.create({
 
 });
 
+function mapStateToProps(decks){
+    return {decks};
+}
+
 
 export default connect(
-
+mapStateToProps
 )(NewDeck)

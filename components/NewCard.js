@@ -19,65 +19,46 @@ const initState = {
     questionIcon: '',
     answerIcon: ''
 
-}
+};
 
 class NewCard extends React.Component {
 
-    state = {
-    };
+    state = {};
 
-    componentWillMount(){
+    componentWillMount() {
         this.setState(initState);
     }
 
+    //type: 0 for question; 1 for answer
+    handleOnTextChange = (text, type) => {
+        let inputText = type === 0 ? 'question' : 'answer';
+        let status = type === 0 ? 'questionStatus' : 'answerStatus';
+        let icon = type === 0 ? 'questionIcon' : 'answerIcon';
+
+        if (!text || !text.trim()) {
+            this.setState(prevState => {
+                prevState[status] = 'error';
+                prevState[icon] = 'close-circle';
+                prevState[inputText] = text;
+                return prevState;
+            })
+        } else {
+
+            this.setState(prevState => {
+                prevState[status] = 'success';
+                prevState[icon] = 'checkmark-circle';
+                prevState[inputText] = text;
+                return prevState;
+            })
+
+        }
+    };
+
+    //TODO: update props for navigation link
     handleOnPress = async (e) => {
         let {question, answer} = this.state;
 
-        if (!question || !question.trim()) {
-            this.setState(prevState => {
-                prevState.questionStatus = 'error';
-                prevState.questionIcon = 'close-circle';
-                return prevState;
-            })
-        }else{
-            if(this.state.questionStatus === 'error') {
-                this.setState(prevState => {
-                    prevState.questionStatus = 'success';
-                    prevState.questionIcon = 'checkmark-circle';
-                    return prevState;
-                })
-            }
-
-        }
-
-        if (!answer || !answer.trim()) {
-            this.setState(prevState => {
-                prevState.answerStatus = 'error';
-                prevState.answerIcon = 'close-circle';
-                return prevState;
-            })
-        }else{
-            if(this.state.answerStatus === 'error') {
-                this.setState(prevState => {
-                    prevState.answerStatus = 'success';
-                    prevState.answerIcon = 'checkmark-circle';
-                    return prevState;
-                })
-            }
-
-        }
-
-
-        if (question.trim() && answer.trim()) {
-            console.log('success');
-            this.setState(prevState => {
-                prevState.questionStatus = 'success';
-                prevState.questionIcon = 'checkmark-circle';
-                prevState.answerStatus = 'success';
-                prevState.answerIcon = 'checkmark-circle';
-                return prevState;
-            });
-
+        if (question && answer && question.trim() && answer.trim()) {
             const {dispatch} = this.props;
             const {deck_title} = this.props.navigation.state.params;
             await dispatch(saveCard(deck_title,
@@ -101,11 +82,11 @@ class NewCard extends React.Component {
                         <Row style={emptyRow}></Row>
                         <View style={inputStyle(Dimensions.get('window'))}>
                             <Item regular={questionStatus === 'regular' ? true : false}
-                                   success={questionStatus === 'success' ? true : false}
-                                    error={questionStatus === 'error' ? true : false}>
+                                  success={questionStatus === 'success' ? true : false}
+                                  error={questionStatus === 'error' ? true : false}>
                                 <Input placeholder='Type your question here...'
                                        value={this.state.question}
-                                       onChangeText={text => this.setState({question: text})}/>
+                                       onChangeText={text => this.handleOnTextChange(text, 0)}/>
                                 {questionIcon ? <Icon name={questionIcon}/> : <Text></Text>}
                             </Item>
                         </View>
@@ -116,7 +97,7 @@ class NewCard extends React.Component {
                                   error={answerStatus === 'error' ? true : false}>
                                 <Input placeholder='Type your answer here...'
                                        value={this.state.answer}
-                                       onChangeText={text => this.setState({answer: text})}/>
+                                       onChangeText={text => this.handleOnTextChange(text, 1)}/>
                                 {answerIcon ? <Icon name={answerIcon}/> : <Text></Text>}
                             </Item>
                         </View>
@@ -134,5 +115,10 @@ class NewCard extends React.Component {
     }
 }
 
-export default connect()(NewCard)
+
+function mapStateToProps(decks) {
+    return {decks};
+}
+
+export default connect(mapStateToProps)(NewCard)
 

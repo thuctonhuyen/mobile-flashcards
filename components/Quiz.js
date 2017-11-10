@@ -63,7 +63,7 @@ class Quiz extends React.Component {
                     <AppHeader header_title={"Quiz"} go_back={this.props.navigation.goBack}/>
 
                     <View style={styles.middleGrid}>
-                        <View><Text>No cards yet.</Text></View>
+                        <View style={styles.item}><Text>No cards yet.</Text></View>
                         <View><Button dark onPress={() => this.props.navigation.goBack()}>
                             <Text>Back To Deck </Text>
                         </Button></View>
@@ -76,21 +76,18 @@ class Quiz extends React.Component {
             return (
                 <Container>
                     <AppHeader header_title={"Quiz"} go_back={this.props.navigation.goBack}/>
-                    <Content>
-                        <Grid style={centerGrid}>
-                            <Row style={emptyRow}/>
-                            <Row><Text>Total Correct: {totalCorrect}</Text></Row>
-                            <Row><Text>Total Incorrect: {totalIncorrect}</Text></Row>
-                            <Row style={emptyRow}/>
-                            <Row><Button danger onPress={() => this.startQuizAgain()}>
-                                <Text>Start Quiz Again</Text>
-                            </Button></Row>
-                            <Row style={emptyRow}/>
-                            <Row><Button dark onPress={() => this.props.navigation.goBack()}>
-                                <Text>Back To Deck </Text>
-                            </Button></Row>
-                        </Grid>
-                    </Content>
+
+                    <View style={styles.middleGrid}>
+                        <View style={styles.item}><Text>Total Correct: {totalCorrect}</Text></View>
+                        <View style={styles.item}><Text>Total Incorrect: {totalIncorrect}</Text></View>
+                        <View style={styles.item}><Button danger onPress={() => this.startQuizAgain()}>
+                            <Text>Start Quiz Again</Text>
+                        </Button></View>
+                        <View style={styles.item}><Button dark onPress={() => this.props.navigation.goBack()}>
+                            <Text>Back To Deck </Text>
+                        </Button></View>
+                    </View>
+
                 </Container>
             )
         } else {
@@ -168,12 +165,12 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems:'center'
+        alignItems: 'center'
 
     },
+
     item: {
-        justifyContent: 'space-around',
-        alignContent: 'center'
+        paddingBottom: 20
     }
 
 
