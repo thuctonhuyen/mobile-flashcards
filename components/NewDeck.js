@@ -11,7 +11,8 @@ import {saveDeck} from "../actions/index";
 import {connect} from 'react-redux'
 import {headerText, inputStyle, centerGrid, emptyRow} from "../helpers/commonStyle";
 
-
+//TODO: Pressing the button correctly creates the deck and routes the user
+// to the Individual Deck view for the new deck.
 class NewDeck extends React.Component {
 
     state = {

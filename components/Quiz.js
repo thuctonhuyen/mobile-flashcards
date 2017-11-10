@@ -61,12 +61,14 @@ class Quiz extends React.Component {
             return (
                 <Container>
                     <AppHeader header_title={"Quiz"} go_back={this.props.navigation.goBack}/>
-                    <Content>
-                        <Text>No cards yet.</Text>
-                        <Button primary onPress={() => this.props.navigation.goBack()}>
+
+                    <View style={styles.middleGrid}>
+                        <View><Text>No cards yet.</Text></View>
+                        <View><Button dark onPress={() => this.props.navigation.goBack()}>
                             <Text>Back To Deck </Text>
-                        </Button>
-                    </Content>
+                        </Button></View>
+                    </View>
+
                 </Container>
             )
         }
@@ -75,20 +77,25 @@ class Quiz extends React.Component {
                 <Container>
                     <AppHeader header_title={"Quiz"} go_back={this.props.navigation.goBack}/>
                     <Content>
-                        <Text>Total Correct: {totalCorrect}</Text>
-                        <Text>Total Incorrect: {totalIncorrect}</Text>
-                        <Button dark onPress={() => this.startQuizAgain()}>
-                            <Text>Start Quiz Again</Text>
-                        </Button>
-                        <Button primary onPress={() => this.props.navigation.goBack()}>
-                            <Text>Back To Deck </Text>
-                        </Button>
+                        <Grid style={centerGrid}>
+                            <Row style={emptyRow}/>
+                            <Row><Text>Total Correct: {totalCorrect}</Text></Row>
+                            <Row><Text>Total Incorrect: {totalIncorrect}</Text></Row>
+                            <Row style={emptyRow}/>
+                            <Row><Button danger onPress={() => this.startQuizAgain()}>
+                                <Text>Start Quiz Again</Text>
+                            </Button></Row>
+                            <Row style={emptyRow}/>
+                            <Row><Button dark onPress={() => this.props.navigation.goBack()}>
+                                <Text>Back To Deck </Text>
+                            </Button></Row>
+                        </Grid>
                     </Content>
                 </Container>
             )
         } else {
             return (
-                <Container style={styles.container}>
+                <Container>
                     <AppHeader header_title={"Quiz"} go_back={this.props.navigation.goBack}/>
                     <Content>
                         <View>
@@ -141,11 +148,6 @@ class Quiz extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignContent: 'center',
-    },
 
     minorText: {
         fontSize: 10,
@@ -158,10 +160,23 @@ const styles = StyleSheet.create({
     },
 
     flipCardStyle: {
-
         padding: 50,
         borderColor: 'transparent',
+    },
+
+    middleGrid: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems:'center'
+
+    },
+    item: {
+        justifyContent: 'space-around',
+        alignContent: 'center'
     }
+
+
 });
 
 export default connect()(Quiz);
