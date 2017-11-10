@@ -8,16 +8,20 @@ import {
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import AppHeader from './AppHeader'
 import {headerText} from "../helpers/commonStyle";
+import NewCard from "./NewCard";
+import {connect} from 'react-redux'
 
-export default class ListOfDecks extends React.Component {
+class IndividualDeck extends React.Component {
     static navigationOptions = {
         tabBarLabel: 'Decks List'
     };
 
     render() {
 
-        const {card, deck_title} = this.props.navigation.state.params;
+        const {deck_title} = this.props.navigation.state.params;
         let {height, width} = Dimensions.get('window');
+        const {decks} = this.props;
+        const card = decks[deck_title];
 
 
         return (
@@ -68,6 +72,10 @@ export default class ListOfDecks extends React.Component {
 }
 
 
+function mapStateToProps(decks) {
+    return {decks};
+}
+
 const styles = StyleSheet.create({
     center: {
         justifyContent: "center",
@@ -77,3 +85,5 @@ const styles = StyleSheet.create({
 
 
 });
+
+export default connect(mapStateToProps)(IndividualDeck);

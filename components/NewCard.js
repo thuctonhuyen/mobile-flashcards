@@ -54,7 +54,6 @@ class NewCard extends React.Component {
         }
     };
 
-    //TODO: update props for navigation link
     handleOnPress = async (e) => {
         let {question, answer} = this.state;
 
@@ -116,9 +115,5 @@ class NewCard extends React.Component {
 }
 
 
-function mapStateToProps(decks) {
-    return {decks};
-}
-
-export default connect(mapStateToProps)(NewCard)
+export default connect()(NewCard)
 
