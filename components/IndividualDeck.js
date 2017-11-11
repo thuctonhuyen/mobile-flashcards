@@ -12,31 +12,27 @@ import NewCard from "./NewCard";
 import {connect} from 'react-redux'
 
 class IndividualDeck extends React.Component {
-    static navigationOptions = {
-        tabBarLabel: 'Decks List'
-    };
 
     render() {
 
         const {deck_title} = this.props.navigation.state.params;
         let {height, width} = Dimensions.get('window');
         const {decks} = this.props;
-        const card = decks[deck_title];
-
+        const deck = decks[deck_title];
 
         return (
 
             <Container>
-                <AppHeader header_title={card.title} go_back={this.props.navigation.goBack}/>
+                <AppHeader header_title={deck.title} go_back={this.props.navigation.goBack}/>
                 <Content>
                     <Grid>
                         <Row style={{height: height - 200}}>
                             <Grid>
                                 <Row style={styles.center}>
-                                    <Text style={headerText}>{card.title}</Text>
+                                    <Text style={headerText}>{deck.title}</Text>
                                 </Row>
                                 <Row style={styles.center}>
-                                    <Text>{card.questions.length} cards </Text>
+                                    <Text>{deck.questions.length} cards </Text>
                                 </Row>
                             </Grid>
                         </Row>
@@ -52,7 +48,7 @@ class IndividualDeck extends React.Component {
                                 <Row style={styles.center}>
 
                                     <Button danger onPress={() =>
-                                        this.props.navigation.navigate('Quiz', {"list_of_quizzes": card.questions})}>
+                                        this.props.navigation.navigate('Quiz', {"list_of_quizzes": deck.questions})}>
                                         <Text>Start Quiz</Text>
                                     </Button>
 

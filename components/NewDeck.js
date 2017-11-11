@@ -11,17 +11,15 @@ import {saveDeck} from "../actions/index";
 import {connect} from 'react-redux'
 import {headerText, inputStyle, centerGrid, emptyRow} from "../helpers/commonStyle";
 
-//TODO: Pressing the button correctly creates the deck and routes the user
-// to the Individual Deck view for the new deck.
-
 const initState= {
     title: '',
     status: 'regular',
     icon: ''
-}
+};
+
 class NewDeck extends React.Component {
 
-    state = {}
+    state = {};
 
     componentWillMount(){
         this.setState(initState);
@@ -38,17 +36,16 @@ class NewDeck extends React.Component {
                 await dispatch(saveDeck(title));
 
                 //if success:
-
                 //reset state:
                 this.setState(initState);
 
                 //then navigate to individual deck view:
                 navigation.navigate('Deck', {
-                    card: this.props.decks[title],
-                    deck_title: this.props.decks.title
+                    deck_title: title
                 });
 
             }catch(e){
+                console.log(e);
                 this.setState((prevState) => {
                     prevState.status = 'error';
                     prevState.icon = 'close-circle';
@@ -114,7 +111,7 @@ class NewDeck extends React.Component {
                                        value={this.state.title}
                                        onChangeText={(text) => this.handleOnChangeText(text)}/>
 
-                                {this.state.icon ? <Icon name={this.state.icon}/> : <Text></Text>}
+                                {this.state.icon ? <Icon name={this.state.icon}/> : <View></View>}
                             </Item>
                         </View>
                         <Row>

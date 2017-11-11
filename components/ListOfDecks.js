@@ -28,7 +28,7 @@ class ListOfDecks extends React.Component {
                 <Content>
                     {Object.keys(decks).sort().map(key =>
                         <TouchableOpacity key={key} onPress={() =>
-                            this.props.navigation.navigate('Deck', {card: decks[key], deck_title: key})}>
+                            this.props.navigation.navigate('Deck', {deck_title: key})}>
                             <Card style={{height: 100}}>
                                 <CardItem>
                                     <Body>
