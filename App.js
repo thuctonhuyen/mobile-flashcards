@@ -20,14 +20,22 @@ const Tabs = TabNavigator({
             screen: ListOfDecks
         },
 
-        NewDeck: {
+        'New Deck': {
             screen: NewDeck
         }
 
     },
     {
+        swipeEnabled: true,
         tabBarOptions: {
             activeTintColor: '#e91e63',
+            style: {
+                paddingTop: 5,
+                paddingBottom: 5
+            },
+            labelStyle:{
+                fontSize: 20
+            }
         }
     });
 
@@ -68,8 +76,8 @@ const store = createStore(
 );
 
 export default class App extends React.Component {
-    state={
-        isReady:false
+    state = {
+        isReady: false
     };
 
     async componentWillMount() {
@@ -79,15 +87,16 @@ export default class App extends React.Component {
             Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
         });
 
-        this.setState({ isReady: true });
+        this.setState({isReady: true});
     }
 
-    componentDidMount(){
+    componentDidMount() {
         setLocalNotification();
     }
+
     render() {
         if (!this.state.isReady) {
-            return <Expo.AppLoading />;
+            return <Expo.AppLoading/>;
         }
         return (
             <Provider store={store}>
