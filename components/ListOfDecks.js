@@ -20,7 +20,7 @@ class ListOfDecks extends React.Component {
 
     render() {
 
-        const {decks} = this.props;
+        const {decks, navigation} = this.props;
 
         return (
             <Container>
@@ -28,7 +28,7 @@ class ListOfDecks extends React.Component {
                 <Content>
                     {Object.keys(decks).sort().map(key =>
                         <TouchableOpacity key={key} onPress={() =>
-                            this.props.navigation.navigate('Deck', {deck_title: key})}>
+                            navigation.navigate('Deck', {deck_title: key})}>
                             <Card style={{height: 100}}>
                                 <CardItem>
                                     <Body>
@@ -37,8 +37,7 @@ class ListOfDecks extends React.Component {
                                 </CardItem>
                                 <CardItem>
                                     <Body>
-                                    <Text style={[styles.textCenter, styles.fadedText]}>{decks[key]['questions'].length}
-                                        cards</Text>
+                                    <Text style={[styles.textCenter, styles.fadedText]}>{decks[key]['questions'].length} cards</Text>
                                     </Body>
                                 </CardItem>
                             </Card>

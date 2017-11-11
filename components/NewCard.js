@@ -1,10 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, Dimensions} from 'react-native';
 import {
-    Container, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text
+    Container, Title, Content, Button, Body, Icon, Text
     , Card, CardItem, Item, Input
 } from 'native-base';
-
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import AppHeader from './AppHeader'
 import {saveCard} from "../actions/index";
@@ -58,11 +57,12 @@ class NewCard extends React.Component {
         let {question, answer} = this.state;
 
         if (question && answer && question.trim() && answer.trim()) {
-            const {dispatch} = this.props;
-            const {deck_title} = this.props.navigation.state.params;
+            const {dispatch, navigation} = this.props;
+            const {deck_title} = navigation.state.params;
             await dispatch(saveCard(deck_title,
                 {question, answer}));
 
+            //update state after successfully save card:
             this.setState(initState);
         }
     };
@@ -70,8 +70,7 @@ class NewCard extends React.Component {
 
     render() {
 
-        const {questionStatus, questionIcon, answerStatus, answerIcon} = this.state;
-
+        const {questionStatus, questionIcon, answerStatus, answerIcon, question, answer} = this.state;
 
         return (
             <Container>
@@ -84,7 +83,7 @@ class NewCard extends React.Component {
                                   success={questionStatus === 'success' ? true : false}
                                   error={questionStatus === 'error' ? true : false}>
                                 <Input placeholder='Type your question here...'
-                                       value={this.state.question}
+                                       value={question}
                                        onChangeText={text => this.handleOnTextChange(text, 0)}/>
                                 {questionIcon ? <Icon name={questionIcon}/> : <Text></Text>}
                             </Item>
@@ -95,9 +94,9 @@ class NewCard extends React.Component {
                                   success={answerStatus === 'success' ? true : false}
                                   error={answerStatus === 'error' ? true : false}>
                                 <Input placeholder='Type your answer here...'
-                                       value={this.state.answer}
+                                       value={answer}
                                        onChangeText={text => this.handleOnTextChange(text, 1)}/>
-                                {answerIcon ? <Icon name={answerIcon}/> : <Text></Text>}
+                                {answerIcon ? <Icon name={answerIcon}/> : <View></View>}
                             </Item>
                         </View>
                         <Row>

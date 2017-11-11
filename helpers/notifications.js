@@ -2,17 +2,6 @@ const NOTIFICATION_KEY = '@MobileFlashCard:notifications';
 import {AsyncStorage} from 'react-native'
 import { Notifications, Permissions } from 'expo'
 
-export function getDailyReminderValue () {
-    return {
-        today: "👋 Don't forget to take a quiz today!"
-    }
-}
-
-export function clearLocalNotification () {
-    return AsyncStorage.removeItem(NOTIFICATION_KEY)
-        .then(Notifications.cancelAllScheduledNotificationsAsync)
-}
-
 function createNotification () {
     return {
         title: 'Take your quizzes!',

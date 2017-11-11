@@ -15,15 +15,15 @@ class IndividualDeck extends React.Component {
 
     render() {
 
-        const {deck_title} = this.props.navigation.state.params;
-        let {height, width} = Dimensions.get('window');
-        const {decks} = this.props;
+        const {height, width} = Dimensions.get('window');
+        const {decks, navigation} = this.props;
+        const {deck_title} = navigation.state.params;
         const deck = decks[deck_title];
 
         return (
 
             <Container>
-                <AppHeader header_title={deck.title} go_back={this.props.navigation.goBack}/>
+                <AppHeader header_title={deck.title} go_back={navigation.goBack}/>
                 <Content>
                     <Grid>
                         <Row style={{height: height - 200}}>
@@ -48,7 +48,7 @@ class IndividualDeck extends React.Component {
                                 <Row style={styles.center}>
 
                                     <Button danger onPress={() =>
-                                        this.props.navigation.navigate('Quiz', {"list_of_quizzes": deck.questions})}>
+                                        navigation.navigate('Quiz', {"list_of_quizzes": deck.questions})}>
                                         <Text>Start Quiz</Text>
                                     </Button>
 

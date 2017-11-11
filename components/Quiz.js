@@ -24,6 +24,10 @@ class Quiz extends React.Component {
         this.setState(prevState => {
             ++prevState.currentQuiz;
             answer === 1 ? ++prevState.totalCorrect : ++prevState.totalIncorrect;
+
+            if(prevState.flip)
+                prevState.flip = false;
+
             return prevState;
         });
 
